@@ -35,12 +35,13 @@ body {
 }
 
 .nav-container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1.5rem;
+    padding: 0 2rem;
+    width: 100%;
 }
 
 .logo {
@@ -48,13 +49,17 @@ body {
     font-weight: 700;
     color: var(--text-light);
     text-decoration: none;
+    flex-shrink: 0;
 }
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 3rem;
     align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+    margin: 0;
 }
 
 .nav-links a {
@@ -219,9 +224,9 @@ body {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 2rem;
 }
 
 .section-title {
@@ -240,36 +245,36 @@ body {
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
     margin-bottom: 2.5rem;
-    max-width: 800px;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0 2rem;
 }
 
 .features-overview-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
     margin-bottom: 2.5rem;
-    max-width: 800px;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0 2rem;
 }
 
 .feature-card {
     background: var(--card-bg);
     padding: 1.5rem;
-    aspect-ratio: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    text-align: left;
     border-radius: 1rem;
     border: 1px solid var(--border-gray);
     transition: transform 0.3s ease, border-color 0.3s ease;
+    min-height: 200px;
 }
 
 .feature-card:hover {
@@ -278,15 +283,16 @@ body {
 }
 
 .feature-icon {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     background: var(--primary-color);
     border-radius: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0.75rem;
-    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    flex-shrink: 0;
 }
 
 .feature-title {
@@ -309,10 +315,11 @@ body {
 
 .ranking-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .rank-card {
@@ -320,13 +327,11 @@ body {
     padding: 1.5rem;
     border-radius: 1rem;
     border: 1px solid var(--border-gray);
-    aspect-ratio: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    text-align: left;
     transition: transform 0.3s ease, border-color 0.3s ease;
+    min-height: 200px;
 }
 
 .rank-card:hover {
@@ -335,15 +340,16 @@ body {
 }
 
 .rank-icon {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     background: var(--primary-color);
     border-radius: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0.75rem;
-    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    flex-shrink: 0;
 }
 
 .rank-title {
@@ -394,10 +400,19 @@ body {
 @media (max-width: 768px) {
     .nav-container {
         padding: 0 1rem;
+        flex-direction: column;
+        gap: 1rem;
     }
     
     .nav-links {
-        gap: 0.75rem;
+        gap: 1.5rem;
+        justify-content: center;
+        margin: 0;
+        flex-wrap: wrap;
+    }
+    
+    .nav-links li:last-child {
+        margin-left: 0;
     }
     
     .hero {
@@ -435,14 +450,16 @@ body {
     
     .features-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        max-width: 400px;
+        gap: 1.5rem;
+        max-width: 100%;
+        padding: 0 1rem;
     }
     
     .features-overview-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        max-width: 400px;
+        gap: 1.5rem;
+        max-width: 100%;
+        padding: 0 1rem;
     }
     
     .feature-card {
@@ -451,8 +468,9 @@ body {
     
     .ranking-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        max-width: 400px;
+        gap: 1.5rem;
+        max-width: 100%;
+        padding: 0 1rem;
     }
     
     .rank-card {
@@ -496,16 +514,22 @@ body {
 @media (max-width: 1024px) and (min-width: 769px) {
     .features-grid {
         grid-template-columns: repeat(2, 1fr);
-        max-width: 600px;
+        gap: 1.5rem;
+        max-width: 900px;
+        padding: 0 1.5rem;
     }
     
     .features-overview-grid {
         grid-template-columns: repeat(2, 1fr);
-        max-width: 600px;
+        gap: 1.5rem;
+        max-width: 900px;
+        padding: 0 1.5rem;
     }
     
     .ranking-grid {
-        grid-template-columns: repeat(3, 1fr);
-        max-width: 700px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        max-width: 900px;
+        padding: 0 1.5rem;
     }
 }
