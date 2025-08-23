@@ -190,6 +190,47 @@ CREATE TABLE `test_cases` (
   `visibility` enum('hidden','sample') NOT NULL DEFAULT 'hidden'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
+-- Table for user posts
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Table for post reactions (likes/dislikes)
+CREATE TABLE `post_reactions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `reaction_type` enum('like', 'dislike') NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_user_post_reaction` (`post_id`, `user_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `post_reactions_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `post_reactions_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Create a view to easily get post statistics
+CREATE OR REPLACE VIEW `post_stats` AS
+SELECT 
+  p.id AS post_id,
+  p.user_id,
+  p.content,
+  p.created_at,
+  COUNT(DISTINCT CASE WHEN pr.reaction_type = 'like' THEN pr.user_id END) AS likes_count,
+  COUNT(DISTINCT CASE WHEN pr.reaction_type = 'dislike' THEN pr.user_id END) AS dislikes_count,
+  (COUNT(DISTINCT CASE WHEN pr.reaction_type = 'like' THEN pr.user_id END) - 
+   COUNT(DISTINCT CASE WHEN pr.reaction_type = 'dislike' THEN pr.user_id END)) AS net_votes
+FROM posts p
+LEFT JOIN post_reactions pr ON p.id = pr.post_id
+GROUP BY p.id;
+
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(32) NOT NULL,
