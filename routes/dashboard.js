@@ -376,6 +376,7 @@ router.get('/leaderboard', requireAuth, async (req, res) => {
                 DENSE_RANK() OVER (ORDER BY rating DESC) as position,
                 ROW_NUMBER() OVER (ORDER BY rating DESC, created_at ASC) as display_order
             FROM users
+            WHERE role = 'user'
             ORDER BY rating DESC, created_at ASC
             LIMIT 15
         `, []);
@@ -392,6 +393,7 @@ router.get('/leaderboard', requireAuth, async (req, res) => {
                     DENSE_RANK() OVER (ORDER BY rating DESC) as position,
                     ROW_NUMBER() OVER (ORDER BY rating DESC, created_at ASC) as display_order
                 FROM users
+                WHERE role = 'user'
             )
             SELECT 
                 position,
@@ -400,8 +402,8 @@ router.get('/leaderboard', requireAuth, async (req, res) => {
                 rating,
                 rank_label,
                 avatar_url,
-                (SELECT COUNT(*) FROM users WHERE rating > (SELECT rating FROM users WHERE id = ?)) as users_ahead,
-                (SELECT COUNT(*) FROM users WHERE rating = (SELECT rating FROM users WHERE id = ?)) as users_same_rating
+                (SELECT COUNT(*) FROM users WHERE rating > (SELECT rating FROM users WHERE id = ?) AND role = 'user') as users_ahead,
+                (SELECT COUNT(*) FROM users WHERE rating = (SELECT rating FROM users WHERE id = ?) AND role = 'user') as users_same_rating
             FROM ranked_users
             WHERE id = ?
         `, [userId, userId, userId]);
@@ -421,6 +423,7 @@ router.get('/leaderboard', requireAuth, async (req, res) => {
                         DENSE_RANK() OVER (ORDER BY rating DESC) as position,
                         ROW_NUMBER() OVER (ORDER BY rating DESC, created_at ASC) as display_order
                     FROM users
+                    WHERE role = 'user'
                 )
                 SELECT * FROM ranked_users
                 WHERE display_order BETWEEN ? AND ?
@@ -481,12 +484,12 @@ router.get('/leaderboard/starred', requireAuth, async (req, res) => {
                 ROW_NUMBER() OVER (ORDER BY u.rating DESC, u.created_at ASC) as display_order,
                 CASE WHEN u.id = ? THEN 1 ELSE 0 END as is_current_user
             FROM users u
-            WHERE u.id = ? 
-               OR u.id IN (
-                   SELECT f.friend_id FROM friends f WHERE f.user_id = ?
-                   UNION
-                   SELECT f.user_id FROM friends f WHERE f.friend_id = ?
-               )
+            WHERE (u.id = ? OR u.id IN (
+                    SELECT f.friend_id FROM friends f WHERE f.user_id = ?
+                    UNION
+                    SELECT f.user_id FROM friends f WHERE f.friend_id = ?
+                ))
+                AND u.role = 'user'
             ORDER BY u.rating DESC, u.created_at ASC
         `, [userId, userId, userId, userId]);
         
@@ -604,7 +607,7 @@ router.get('/users/search', requireAuth, async (req, res) => {
                 UNION
                 SELECT user_id FROM friends WHERE friend_id = ?
             ) f ON u.id = f.user_id
-            WHERE u.username LIKE ? AND u.id != ?
+            WHERE u.username LIKE ? AND u.id != ? AND u.role = 'user'
             ORDER BY 
                 is_starred ASC,
                 u.rating DESC,

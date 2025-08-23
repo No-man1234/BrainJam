@@ -6,7 +6,7 @@
     --success-color: #00ff88;
     --warning-color: #ffaa00;
     --error-color: #ff4757;
-    --background-dark: #0a0a0f;
+    --background-dark: #000000;
     --surface-dark: #1a1a25;
     --surface-light: #242438;
     --text-primary: #ffffff;
@@ -25,7 +25,7 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--background-dark);
+    background-color: #000000;
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
@@ -66,7 +66,7 @@ body {
 
 /* Navigation Bar */
 .nav-bar {
-    background: var(--surface-dark);
+    background: #000000;
     border-bottom: 1px solid var(--border-color);
     padding: 0 20px;
     position: sticky;
@@ -191,6 +191,7 @@ body {
 .dashboard {
     padding: 40px 20px;
     min-height: calc(100vh - 70px);
+    background-color: #000000;
 }
 
 .dashboard-container {
@@ -210,7 +211,7 @@ body {
 /* Profile Section */
 .profile-section {
     grid-area: profile;
-    background: var(--surface-dark);
+    background: #000000;
     padding: 30px;
     border-radius: 16px;
     border: 1px solid var(--border-color);
@@ -313,7 +314,7 @@ body {
 /* Match History */
 .match-history {
     grid-area: matches;
-    background: var(--surface-dark);
+    background: #000000;
     padding: 30px;
     border-radius: 16px;
     border: 1px solid var(--border-color);
@@ -344,7 +345,7 @@ body {
 }
 
 .match-table th {
-    background: var(--surface-light);
+    background: #000000;
     color: var(--text-secondary);
     font-weight: 600;
     font-size: 0.9rem;
@@ -388,7 +389,7 @@ body {
 /* Statistics */
 .statistics {
     grid-area: statistics;
-    background: var(--surface-dark);
+    background: #000000;
     padding: 30px;
     border-radius: 16px;
     border: 1px solid var(--border-color);
@@ -409,7 +410,7 @@ body {
 }
 
 .stat-card {
-    background: var(--surface-light);
+    background: #000000;
     padding: 15px;
     border-radius: 12px;
     border: 1px solid var(--border-color);
@@ -439,7 +440,7 @@ body {
 /* Language Chart */
 .language-chart {
     grid-area: chart;
-    background: var(--surface-dark);
+    background: #000000;
     padding: 30px;
     border-radius: 16px;
     border: 1px solid var(--border-color);
@@ -462,7 +463,7 @@ body {
 /* Achievements */
 .achievements {
     grid-area: achievements;
-    background: var(--surface-dark);
+    background: #000000;
     padding: 30px;
     border-radius: 16px;
     border: 1px solid var(--border-color);
@@ -527,7 +528,7 @@ body {
 /* Recent Activity */
 .recent-activity {
     grid-area: activity;
-    background: var(--surface-dark);
+    background: #000000;
     padding: 30px;
     border-radius: 16px;
     border: 1px solid var(--border-color);
@@ -614,7 +615,7 @@ body {
 /* Leaderboard */
 .leaderboard {
     grid-area: leaderboard;
-    background: var(--surface-dark);
+    background: #000000;
     padding: 30px;
     border-radius: 16px;
     border: 1px solid var(--border-color);
