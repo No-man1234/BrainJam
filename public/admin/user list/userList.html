@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link crossorigin href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <title>Code Arena - Users</title>
+    <link href="/admin/user list/test1.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="layout">
+      <!-- Sidebar -->
+      <!-- <aside class="sidebar">
+        <div class="logo">
+          <div class="logo-box"></div>
+          <h1>Code Arena</h1>
+        </div>
+        <nav class="nav">
+          <a href="#"><span class="material-symbols-outlined">dashboard</span>Dashboard</a>
+          <a href="#"><span class="material-symbols-outlined">list_alt</span>Problems</a>
+          <a href="#"><span class="material-symbols-outlined">emoji_events</span>Contests</a>
+          <a href="#" class="active"><span class="material-symbols-outlined">group</span>Users</a>
+          <a href="#"><span class="material-symbols-outlined">settings</span>Settings</a>
+        </nav>
+        <div class="sidebar-footer">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFEgYfkG-oEwRMt0HetEsnkQME30fkCBuqzYZbfFHDaSLwLcrLCFowHuCSaGqCnBO0WURghALqI9zJP0cVUx65PdVLbd1AKc25EY5VKm03MZMwP6ucHmYtt775ChXZFOkZV6BvPivcq_51HSWb5mhD549oPwrcRocTihjZOTZGwR0iwia2nj0z8McEHiZ1wcDMafMkWKyTf8rKsVkl95xx0Vz9jPDv1Zpl-NE6oIOgInIswL-QXwzeNRVYEMoJvjjiadOZYnQ3L70" alt="Admin avatar" />
+          <div>
+            <p class="username">Admin</p>
+            <p class="email">admin@codearena.com</p>
+          </div>
+        </div>
+      </aside> -->
+
+      <!-- Main Content -->
+      <main class="main">
+        <header class="header">
+          <div class="header-left">
+            <div class="logo">
+              <svg
+                class="logo-icon"
+                fill="none"
+                viewBox="0 0 48 48"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+              <h2>CodeDrills</h2>
+            </div>
+            <nav class="nav-links">
+            <a href="/admin-dashboard">Dashboard</a>
+            <a href="/admin-contest" >Contests</a>
+            <a href="/admin-problems">Problems</a>
+            <a href="/admin-users" class="active">Users</a>
+            <a href="/admin-discuss">Discuss</a>
+            </nav>
+          </div>
+          <div class="header-right">
+            <div class="search-bar">
+              <span class="material-symbols-outlined search-icon">search</span>
+              <input type="text" placeholder="Search" />
+            </div>
+            <button class="icon-btn">
+              <span class="material-symbols-outlined">notifications</span>
+            </button>
+            <button class="profile-btn"></button>
+          </div>
+        </header>
+
+        <div class="header">
+          <div>
+            <h2>Users</h2>
+            <p>Manage user accounts, roles, and permissions.</p>
+          </div>
+          <button class="btn-primary">
+            <span class="material-symbols-outlined">add</span> New User
+          </button>
+        </div>
+
+        <!-- Search & Filters -->
+        <div class="filters">
+          <div class="search-box">
+            <span class="material-symbols-outlined">search</span>
+            <input type="text" placeholder="Search users by name or email" />
+          </div>
+          <div class="filter-buttons">
+            <button>
+              Role
+              <span class="material-symbols-outlined">arrow_drop_down</span>
+            </button>
+            <button>
+              Status
+              <span class="material-symbols-outlined">arrow_drop_down</span>
+            </button>
+            <button>
+              Sort By
+              <span class="material-symbols-outlined">arrow_drop_down</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Last Login</th>
+                <th class="actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="user-info">
+                    <img
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0mgb7pCSOOlRhJPouKwKP3XEAxn0ZbxUarD-RsCCsuq_l5pprN5fixXNmpgY9fjstc0rz_fjNAD4Sto-VM5CxR_7GZA8OrUaAwudknVo9UAI1prWIK18MEZwotzkQOmtioOHR31rbOZloURm8Zj6ON9YeAft9-ehwBaZLfEXK1BJnmWXcdDVZSCFzVBq5Uu5U--JwmWYEc5GiOOcHm_namz7kK39x0116bM0kIwDlPLU_KhviOCGrfFaHkJYgiOK4ESX7k5VtHfM"
+                      alt="Liam Carter"
+                    />
+                    <div>
+                      <p class="user-name">Liam Carter</p>
+                      <p class="user-email">liam.carter@example.com</p>
+                    </div>
+                  </div>
+                </td>
+                <td>Admin</td>
+                <td><span class="badge active">Active</span></td>
+                <td>2 hours ago</td>
+                <td class="action-buttons">
+                  <button class="edit">Edit</button>
+                  <button class="ban">Ban</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <p>Showing 1 to 6 of 20 results</p>
+          <div class="page-buttons">
+            <button disabled>Previous</button>
+            <button>Next</button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

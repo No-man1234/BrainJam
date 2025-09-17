@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link
+      as="style"
+      href="https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900"
+      onload="this.rel='stylesheet'"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <title>Stitch Design</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/admin/create problem/test1.css" />
+  </head>
+  <body class="bg-dark text-white">
+    <div class="page-container">
+      <!-- Header -->
+      <header class="header">
+        <div class="left-section">
+          <div class="logo">
+            <svg
+              class="logo-icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM10 16.5L16.5 12L10 7.5V16.5Z"
+                fill-rule="evenodd"
+              ></path>
+            </svg>
+            <h2>CodeDrills</h2>
+          </div>
+          <nav class="navbar">
+            <a href="/admin-dashboard">Dashboard</a>
+            <a href="/admin-contest">Contests</a>
+            <a href="/admin-problems" class="active">Problems</a>
+            <a href="/admin-users">Users</a>
+            <a href="/admin-discuss">Discuss</a>
+          </nav>
+        </div>
+
+        <div class="right-section">
+          <div class="search-box">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input type="text" placeholder="Search" />
+          </div>
+
+          <button class="notification-btn">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="dot"></span>
+          </button>
+
+          <div class="profile">
+            <div
+              class="avatar"
+              style="
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBiAT5-K35i8N4luWIUKqu8kIDlDvBRPK2KbnBXQh-DNjqJGyuXw6bG2BENucfuCyccUhuZnK2MbhPdW-FGLDwi9mKCiJ9wcs0Fo8MM_5kJp9TFniTYAj6YuPte4ke0YmI2iwGhHPrvQukWnBsy4DKuRYv5r5zdSmuIWni4PQj8ev1qAjg9sFUeWk7bVV-sIquSPwDE1gpshNEdNhvLoZbOmG1GRv2hyBGA8nc-wuEdfstvkYEtsuW_9wkiHgua4l6IIf3WOSaTmsY');
+              "
+            ></div>
+            <span class="username">John Doe</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main -->
+      <main class="main">
+        <div class="form-container">
+          <div class="form-header">
+            <h2>Add Problem</h2>
+            <p>Create a new problem for contests or practice.</p>
+          </div>
+          <form class="form">
+            <div class="form-grid">
+              <label>
+                <span>Problem Title</span>
+                <input type="text" placeholder="e.g., Two Sum" />
+              </label>
+              <label>
+                <span>Difficulty</span>
+                <select>
+                  <option>Easy</option>
+                  <option>Medium</option>
+                  <option>Hard</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              <span>Problem Statement</span>
+              <textarea
+                placeholder="Describe the problem clearly and concisely. Use Markdown for formatting."
+              ></textarea>
+            </label>
+            <label>
+              <span>Constraints</span>
+              <textarea
+                placeholder="List all constraints for the input variables. e.g., 1 <= nums.length <= 10^4"
+              ></textarea>
+            </label>
+            <label>
+              <span>Examples</span>
+              <textarea
+                placeholder="Provide clear input/output examples. Use Markdown for code blocks."
+              ></textarea>
+            </label>
+            <label>
+              <span>Test Cases</span>
+              <textarea
+                placeholder="Add test cases, one per line. Format: input|output. e.g., [2,7,11,15],9|0,1"
+              ></textarea>
+            </label>
+            <div class="form-actions">
+              <button type="button" class="cancel-btn">Cancel</button>
+              <button type="submit" class="save-btn">Save Problem</button>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

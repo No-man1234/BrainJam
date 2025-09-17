@@ -1,0 +1,242 @@
+<html>
+  <head>
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link
+      as="style"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+      onload="this.rel='stylesheet'"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <meta charset="utf-8" />
+    <title>Stitch Design</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
+    <!-- REMOVE TAILWIND SCRIPT -->
+    <!-- <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script> -->
+    <!-- REMOVE TAILWIND STYLE -->
+    <!-- <style type="text/tailwindcss"></style> -->
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body class="body-root">
+    <div class="dashboard-layout">
+      <aside class="sidebar">
+        <div>
+          <div class="sidebar-header">
+            <div class="sidebar-logo">
+              <span class="material-symbols-outlined sidebar-logo-icon">
+                code
+              </span>
+            </div>
+            <h1 class="sidebar-title">ContestDeck</h1>
+          </div>
+          <nav class="sidebar-nav">
+            <a class="sidebar-link sidebar-link-active" href="#">
+              <span class="material-symbols-outlined"> dashboard </span>
+              <span>Dashboard</span>
+            </a>
+            <a class="sidebar-link" href="/admin-contest">
+              <span class="material-symbols-outlined"> emoji_events </span>
+              <span>Contests</span>
+            </a>
+            <a class="sidebar-link" href="/admin-problems">
+              <span class="material-symbols-outlined"> help_outline </span>
+              <span>Problems</span>
+            </a>
+            <a class="sidebar-link" href="/admin-users">
+              <span class="material-symbols-outlined"> group </span>
+              <span>Users</span>
+            </a>
+          </nav>
+        </div>
+        <a class="sidebar-link" href="#">
+          <span class="material-symbols-outlined"> settings </span>
+          <span>Settings</span>
+        </a>
+      </aside>
+      
+      <main class="main-content">
+        <header class="main-header">
+          <h1 class="main-title">Dashboard</h1>
+          <p class="main-subtitle">
+            Welcome back! Here's an overview of your platform.
+          </p>
+        </header>
+        <!-- Continue replacing classes for all sections below -->
+        <!-- ... -->
+        <section class="section-system-health">
+          <h2 class="section-title">System Health</h2>
+          <div class="system-health-cards">
+            <div class="system-health-card">
+              <div class="system-health-card-header">
+                <p class="system-health-label">CPU Usage</p>
+                <span class="material-symbols-outlined system-health-icon-blue">
+                  memory
+                </span>
+              </div>
+              <p class="system-health-value">35%</p>
+            </div>
+            <div class="system-health-card">
+              <div class="system-health-card-header">
+                <p class="system-health-label">Memory Usage</p>
+                <span
+                  class="material-symbols-outlined system-health-icon-green"
+                >
+                  developer_board
+                </span>
+              </div>
+              <p class="system-health-value">60%</p>
+            </div>
+            <div class="system-health-card">
+              <div class="system-health-card-header">
+                <p class="system-health-label">Disk Space</p>
+                <span
+                  class="material-symbols-outlined system-health-icon-yellow"
+                >
+                  save
+                </span>
+              </div>
+              <p class="system-health-value">70%</p>
+            </div>
+          </div>
+        </section>
+        <section class="section-active-contests">
+          <h2 class="section-title">Active Contests</h2>
+          <div class="table-container">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th class="table-cell">Contest Name</th>
+                  <th class="table-cell">Start Time</th>
+                  <th class="table-cell">End Time</th>
+                  <th class="table-cell table-cell-center">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="table-cell">Summer Coding Challenge</td>
+                  <td class="table-cell table-cell-muted">
+                    2024-07-15 10:00 AM
+                  </td>
+                  <td class="table-cell table-cell-muted">
+                    2024-07-15 02:00 PM
+                  </td>
+                  <td class="table-cell table-cell-center">
+                    <span class="badge badge-green">Active</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-cell">Fall Programming Showdown</td>
+                  <td class="table-cell table-cell-muted">
+                    2024-09-20 09:00 AM
+                  </td>
+                  <td class="table-cell table-cell-muted">
+                    2024-09-20 01:00 PM
+                  </td>
+                  <td class="table-cell table-cell-center">
+                    <span class="badge badge-yellow">Upcoming</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-cell">Winter Algorithm Competition</td>
+                  <td class="table-cell table-cell-muted">
+                    2024-12-10 11:00 AM
+                  </td>
+                  <td class="table-cell table-cell-muted">
+                    2024-12-10 03:00 PM
+                  </td>
+                  <td class="table-cell table-cell-center">
+                    <span class="badge badge-yellow">Upcoming</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <section class="section-recent-submissions">
+          <h2 class="section-title">Recent Submissions</h2>
+          <div class="table-container">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th class="table-cell">User</th>
+                  <th class="table-cell">Problem</th>
+                  <th class="table-cell">Language</th>
+                  <th class="table-cell table-cell-center">Status</th>
+                  <th class="table-cell table-cell-right">Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="table-cell">Liam Carter</td>
+                  <td class="table-cell table-cell-muted">
+                    Binary Search Tree
+                  </td>
+                  <td class="table-cell table-cell-muted">Python</td>
+                  <td class="table-cell table-cell-center">
+                    <span class="badge badge-green">Accepted</span>
+                  </td>
+                  <td class="table-cell table-cell-right table-cell-muted">
+                    100
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-cell">Olivia Bennett</td>
+                  <td class="table-cell table-cell-muted">
+                    Dynamic Programming
+                  </td>
+                  <td class="table-cell table-cell-muted">Java</td>
+                  <td class="table-cell table-cell-center">
+                    <span class="badge badge-green">Accepted</span>
+                  </td>
+                  <td class="table-cell table-cell-right table-cell-muted">
+                    95
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-cell">Noah Thompson</td>
+                  <td class="table-cell table-cell-muted">Graph Algorithms</td>
+                  <td class="table-cell table-cell-muted">C++</td>
+                  <td class="table-cell table-cell-center">
+                    <span class="badge badge-green">Accepted</span>
+                  </td>
+                  <td class="table-cell table-cell-right table-cell-muted">
+                    80
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-cell">Emma Davis</td>
+                  <td class="table-cell table-cell-muted">
+                    Sorting Algorithms
+                  </td>
+                  <td class="table-cell table-cell-muted">Python</td>
+                  <td class="table-cell table-cell-center">
+                    <span class="badge badge-green">Accepted</span>
+                  </td>
+                  <td class="table-cell table-cell-right table-cell-muted">
+                    75
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-cell">Ethan Walker</td>
+                  <td class="table-cell table-cell-muted">
+                    String Manipulation
+                  </td>
+                  <td class="table-cell table-cell-muted">Java</td>
+                  <td class="table-cell table-cell-center">
+                    <span class="badge badge-red">Wrong Answer</span>
+                  </td>
+                  <td class="table-cell table-cell-right table-cell-muted">
+                    60
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,254 @@
+:root {
+  --primary-color: #1173d4;
+  --secondary-color: #192633;
+  --border-color: #233648;
+  --text-primary: #ffffff;
+  --text-secondary: #92adc9;
+  --background: #111a22;
+  font-family: Inter, "Noto Sans", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text-primary);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  border-bottom: 1px solid #1e293b; /* slate-800 */
+  background: #0f172a;
+}
+
+/* Left Section */
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 28px;
+  height: 28px;
+  color: #3b82f6; /* primary-500 */
+}
+
+.logo h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  gap: 16px;
+}
+
+.navbar a {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #cbd5e1; /* slate-300 */
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.navbar a:hover {
+  background: #1e293b;
+  color: white;
+}
+
+.navbar a.active {
+  background: #1e293b;
+  color: white;
+}
+
+/* Right Section */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Search Box */
+.search-box {
+  position: relative;
+  display: none; /* show only on larger screens if you want */
+}
+
+.search-box input {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 8px 12px 8px 36px;
+  color: white;
+  font-size: 14px;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 18px;
+}
+
+/* Notification Button */
+.notification-btn {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.notification-btn:hover {
+  background: #1e293b;
+  color: white;
+}
+
+.notification-btn .dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background: red;
+  border-radius: 50%;
+}
+
+/* Profile */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+}
+
+.username {
+  font-size: 14px;
+  font-weight: 500;
+  display: none; /* show only on larger screens */
+}
+
+/* Main */
+.main-content {
+  padding: 30px 40px;
+  display: flex;
+  justify-content: center;
+}
+.form-container {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.form-container h2 {
+  font-size: 28px;
+  font-weight: bold;
+}
+.form-container h3 {
+  font-size: 20px;
+  margin-top: 20px;
+}
+.form-container p {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+.form-label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+}
+.form-input {
+  width: 100%;
+  background: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 14px;
+  color: white;
+  margin-bottom: 15px;
+}
+textarea.form-input {
+  min-height: 100px;
+}
+
+/* Table */
+.table-container {
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+th {
+  font-weight: 600;
+}
+tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+.badge {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+.badge.easy {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+
+/* Buttons */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: #0e5db5;
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Stitch Design</title>
+    <link rel="stylesheet" href="/admin/submission/test1.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@400;500;600;700;900&family=Noto+Sans:wght@400;500;600;700;900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="page-container">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <div class="logo">
+            <svg
+              class="logo-icon"
+              fill="none"
+              viewBox="0 0 48 48"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+            <h2>CodeDrills</h2>
+          </div>
+          <nav class="nav-links">
+            <a href="/admin-dashboard">Dashboard</a>
+            <a href="/admin-contest">Contests</a>
+            <a href="/admin-problems" class="active">Problems</a>
+            <a href="/admin-users">Users</a>
+            <a href="/admin-discuss">Discuss</a>
+          </nav>
+        </div>
+        <div class="header-right">
+          <div class="search-bar">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input type="text" placeholder="Search" />
+          </div>
+          <button class="icon-btn">
+            <span class="material-symbols-outlined">notifications</span>
+          </button>
+          <button class="profile-btn"></button>
+        </div>
+      </header>
+
+      <!-- Main -->
+      <main class="main-content">
+        <div class="content-wrapper">
+          <div class="section-header">
+            <h1>Submissions</h1>
+            <p>View all submissions for problems and contests.</p>
+          </div>
+
+          <div class="card">
+            <div class="card-toolbar">
+              <div class="filters">
+                <button class="filter-btn">Verdict <span class="material-symbols-outlined">expand_more</span></button>
+                <button class="filter-btn">User <span class="material-symbols-outlined">expand_more</span></button>
+                <button class="filter-btn">Problem <span class="material-symbols-outlined">expand_more</span></button>
+              </div>
+              <div class="actions">
+                <button class="icon-btn" title="Rejudge selected"><span class="material-symbols-outlined">refresh</span></button>
+                <button class="icon-btn" title="View plagiarism report"><span class="material-symbols-outlined">description</span></button>
+                <button class="primary-btn"><span class="material-symbols-outlined">refresh</span> Rejudge</button>
+              </div>
+            </div>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th><input type="checkbox" /></th>
+                    <th>Submission ID</th>
+                    <th>User</th>
+                    <th>Problem</th>
+                    <th>Language</th>
+                    <th>Verdict</th>
+                    <th>Time</th>
+                    <th>Memory</th>
+                    <th>Submitted At</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>#12345</td>
+                    <td>Alex Turner</td>
+                    <td>Binary Search</td>
+                    <td>Python</td>
+                    <td><span class="badge verdict-accepted">Accepted</span></td>
+                    <td>0.2s</td>
+                    <td>64MB</td>
+                    <td>2023-01-15 10:00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

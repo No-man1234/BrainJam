@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Stitch Design</title>
+    <link rel="stylesheet" href="/admin/discuss/test1.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="layout">
+        <!-- Sidebar -->
+        <!-- <aside class="sidebar">
+          <div class="sidebar-top">
+            <div class="brand">
+              <h1>Code Arena</h1>
+              <p>Admin Panel</p>
+            </div>
+            <nav class="nav">
+              <a href="#" class="nav-link">
+                <span class="icon">🏠</span>
+                Home
+              </a>
+              <a href="#" class="nav-link">
+                <span class="icon">📋</span>
+                Problems
+              </a>
+              <a href="#" class="nav-link">
+                <span class="icon">🏆</span>
+                Contests
+              </a>
+              <a href="#" class="nav-link active">
+                <span class="icon">💬</span>
+                Discuss
+              </a>
+              <a href="#" class="nav-link">
+                <span class="icon">👥</span>
+                Groups
+              </a>
+            </nav>
+          </div>
+          <div class="sidebar-bottom">
+            <img
+              alt="Admin avatar"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOWViWDlCQCwZEEHBgF-xZzsCtIE8Qf1261in-Oor8XwTnrq9MMpXcn9UuBIQi2Mgx5PxIy8E8xAB83Jx-w-PzOf-_Ovj0ng_4MZH0hutDQAvbq6rxPWPhIOwYcLwmtaRui9SCSShot3D-g41qCQVDENpBE0vzoiIKotEI_eZ7O9bJaDjouB9hLJHOK4rieA47AZpAPzLsgR2MJuDbPmLz1dvXvETpykJPfVv6l-bz9c9jgm_9Wfl9GBGC8gAW6mLdGCBznLhFmeQ"
+            />
+            <div class="user-info">
+              <p class="username">Admin User</p>
+              <a href="#" class="logout">Logout</a>
+            </div>
+          </div>
+        </aside> -->
+
+        <!-- Main -->
+        <main class="main">
+
+                <header class="header">
+        <div class="left-section">
+          <div class="logo">
+            <svg
+              class="logo-icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM10 16.5L16.5 12L10 7.5V16.5Z"
+                fill-rule="evenodd"
+              ></path>
+            </svg>
+            <h2>CodeDrills</h2>
+          </div>
+          <nav class="navbar">
+            <a href="/admin-dashboard">Dashboard</a>
+            <a href="/admin-contest">Contests</a>
+            <a href="/admin-problems">Problems</a>
+            <a href="/admin-users">Users</a>
+            <a href="/admin-discuss" class="active">Discuss</a>
+          </nav>
+        </div>
+
+        <div class="right-section">
+          <div class="search-box">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input type="text" placeholder="Search" />
+          </div>
+
+          <button class="notification-btn">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="dot"></span>
+          </button>
+
+          <div class="profile">
+            <div
+              class="avatar"
+              style="
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBiAT5-K35i8N4luWIUKqu8kIDlDvBRPK2KbnBXQh-DNjqJGyuXw6bG2BENucfuCyccUhuZnK2MbhPdW-FGLDwi9mKCiJ9wcs0Fo8MM_5kJp9TFniTYAj6YuPte4ke0YmI2iwGhHPrvQukWnBsy4DKuRYv5r5zdSmuIWni4PQj8ev1qAjg9sFUeWk7bVV-sIquSPwDE1gpshNEdNhvLoZbOmG1GRv2hyBGA8nc-wuEdfstvkYEtsuW_9wkiHgua4l6IIf3WOSaTmsY');
+              "
+            ></div>
+            <span class="username">John Doe</span>
+          </div>
+        </div>
+      </header>
+
+          <div class="header">
+            <h1>Discuss</h1>
+            <button class="new-post">+ New Post</button>
+          </div>
+
+          <!-- Tabs -->
+          <div class="tabs">
+            <a href="#" class="tab active">Announcements</a>
+            <a href="#" class="tab">Posts</a>
+            <a href="#" class="tab">Comments</a>
+            <a href="#" class="tab">Spam</a>
+          </div>
+
+          <!-- Announcements -->
+          <section class="section">
+            <h2>Announcements</h2>
+            <div class="card">
+              <h3>New Feature: Collaborative Problem Solving</h3>
+              <p>
+                We're excited to announce the launch of our new feature:
+                Collaborative Problem Solving! Work with your friends in
+                real-time.
+              </p>
+              <small>Posted by Admin · 2d ago</small>
+            </div>
+            <div class="card">
+              <h3>Summer Coding Challenge Winners</h3>
+              <p>
+                We're thrilled to announce the winners of the Summer Coding
+                Challenge! Congratulations to all participants.
+              </p>
+              <small>Posted by Admin · 1w ago</small>
+            </div>
+          </section>
+
+          <!-- Pending Approval -->
+          <section class="section">
+            <h2>Pending Approval</h2>
+            <div class="card">
+              <h3>Free Coding Solutions</h3>
+              <p>
+                Get free coding solutions and boost your rank! Visit our website
+                for details.
+              </p>
+              <small>Posted by SpamBot · 1d ago</small>
+              <div class="actions">
+                <button class="approve">Approve</button>
+                <button class="remove">Remove</button>
+              </div>
+            </div>
+            <div class="card">
+              <h3>Exclusive Coding Community</h3>
+              <p>
+                Join our exclusive coding community and get access to premium
+                resources and expert guidance.
+              </p>
+              <small>Posted by SpamBot2 · 2d ago</small>
+              <div class="actions">
+                <button class="approve">Approve</button>
+                <button class="remove">Remove</button>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

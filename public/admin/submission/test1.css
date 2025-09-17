@@ -1,0 +1,268 @@
+:root {
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-200: #bfdbfe;
+  --primary-300: #93c5fd;
+  --primary-400: #60a5fa;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-800: #1e40af;
+  --primary-900: #1e3a8a;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, 'Noto Sans', sans-serif;
+  background: #111827;
+  color: #f3f4f6;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #1f2937;
+  padding: 1rem 2.5rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+}
+
+.logo-icon {
+  height: 24px;
+  width: 24px;
+  color: var(--primary-500);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: #9ca3af;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-links a:hover,
+.nav-links .active {
+  color: white;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search-bar {
+  position: relative;
+  width: 16rem;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+  border: none;
+  border-radius: 0.375rem;
+  background: #1f2937;
+  color: white;
+  font-size: 0.875rem;
+}
+
+.search-bar input::placeholder {
+  color: #6b7280;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  color: #6b7280;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  color: #9ca3af;
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  background: #1f2937;
+  color: white;
+}
+
+.profile-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB7VfBOcC1ICNH3MvDFCdy_8CtREWsM5SN1GHoxCXe28vq4cvLDaAGICQHvCe5bnhfxA-gfJ8AfRrfwclgfqbNLeNSz8ZPgvJ_j5sgB6F2dTh8_JrLMY6ei_Exz0c2wREDvjT6soeGdVHctwWOcy76Fc8S17s7YamGODms-ckWU1m6nKPKz8NkP4qqrR4rXBgKNjJMgKP2KA4CbteRb8X5FAtyUz2Uv5ZR6zveNuowLXT2XF2psSGRUuk5bnNzZmw-gMGY-fziEKAU') center/cover no-repeat;
+  border: none;
+}
+
+/* Main */
+.main-content {
+  flex: 1;
+  padding: 2rem 5rem;
+}
+
+.section-header h1 {
+  font-size: 1.875rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.section-header p {
+  margin-top: 0.5rem;
+  color: #9ca3af;
+}
+
+/* Card */
+.card {
+  margin-top: 2rem;
+  border: 1px solid #1f2937;
+  background: rgba(17, 24, 39, 0.5);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.card-toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filters {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  background: #1f2937;
+  color: #d1d5db;
+  font-size: 0.875rem;
+  cursor: pointer;
+  border: none;
+}
+
+.filter-btn:hover {
+  background: #374151;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.primary-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: var(--primary-600);
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  background: var(--primary-700);
+}
+
+/* Table */
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+thead {
+  background: rgba(31, 41, 55, 0.5);
+  color: #9ca3af;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #1f2937;
+}
+
+td {
+  color: #d1d5db;
+}
+
+td:first-child, th:first-child {
+  width: 40px;
+}
+
+tbody tr:hover {
+  background: rgba(31, 41, 55, 0.5);
+}
+
+/* Verdict Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.verdict-accepted {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.verdict-wrong-answer {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.verdict-time-limit {
+  color: #f97316;
+  background: rgba(249, 115, 22, 0.1);
+}
+
+.verdict-runtime-error {
+  color: #eab308;
+  background: rgba(234, 179, 8, 0.1);
+}

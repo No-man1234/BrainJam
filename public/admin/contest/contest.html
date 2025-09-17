@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Contest Management</title>
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link
+      as="style"
+      href="https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@400;500;600;700;900&family=Noto+Sans:wght@400;500;700;900"
+      onload="this.rel='stylesheet'"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/admin/contest/test1.css" />
+  </head>
+  <body>
+    <div class="page">
+      <!-- Header -->
+      <header class="header">
+        <div class="left-section">
+          <div class="logo">
+            <svg
+              class="logo-icon"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM10 16.5L16.5 12L10 7.5V16.5Z"
+                fill-rule="evenodd"
+              ></path>
+            </svg>
+            <h2>CodeDrills</h2>
+          </div>
+          <nav class="navbar">
+            <a href="/admin-dashboard">Dashboard</a>
+            <a href="/admin-contest" class="active">Contests</a>
+            <a href="/admin-problems">Problems</a>
+            <a href="/admin-users">Users</a>
+            <a href="/admin-discuss">Discuss</a>
+          </nav>
+        </div>
+
+        <div class="right-section">
+          <div class="search-box">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input type="text" placeholder="Search" />
+          </div>
+
+          <button class="notification-btn">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="dot"></span>
+          </button>
+
+          <div class="profile">
+            <div
+              class="avatar"
+              style="
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBiAT5-K35i8N4luWIUKqu8kIDlDvBRPK2KbnBXQh-DNjqJGyuXw6bG2BENucfuCyccUhuZnK2MbhPdW-FGLDwi9mKCiJ9wcs0Fo8MM_5kJp9TFniTYAj6YuPte4ke0YmI2iwGhHPrvQukWnBsy4DKuRYv5r5zdSmuIWni4PQj8ev1qAjg9sFUeWk7bVV-sIquSPwDE1gpshNEdNhvLoZbOmG1GRv2hyBGA8nc-wuEdfstvkYEtsuW_9wkiHgua4l6IIf3WOSaTmsY');
+              "
+            ></div>
+            <span class="username">John Doe</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main -->
+      <main class="main">
+        <div class="container">
+          <div class="page-header">
+            <h2>Contests</h2>
+            <button class="btn-primary">
+              <span class="material-symbols-outlined">add</span>
+              New Contest
+            </button>
+          </div>
+
+          <div class="tabs">
+            <a href="#" class="active">Active</a>
+            <a href="#">Upcoming</a>
+            <a href="#">Past</a>
+          </div>
+
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Start Time</th>
+                  <th>Duration</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>CodeSprint 2024</td>
+                  <td>2024-01-15 10:00 AM</td>
+                  <td>3 hours</td>
+                  <td>
+                    <span class="status active">
+                      <span class="dot"></span> Active
+                    </span>
+                  </td>
+                  <td class="actions">
+                    <button><span class="material-symbols-outlined">edit</span></button>
+                    <button><span class="material-symbols-outlined">content_copy</span></button>
+                    <button class="delete">
+                      <span class="material-symbols-outlined">delete</span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
