@@ -113,6 +113,10 @@ app.get('/practice', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'practice.html'));
 });
 
+app.get('/problem-detail', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'problem-detail.html'));
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
