@@ -95,6 +95,27 @@ body {
     table-layout: fixed; 
 }
 
+/* Set specific column widths */
+.challenge-table th:nth-child(1),
+.challenge-table td:nth-child(1) {
+    width: 8%; /* ID column - narrow */
+}
+
+.challenge-table th:nth-child(2),
+.challenge-table td:nth-child(2) {
+    width: 50%; /* Title column - wide */
+}
+
+.challenge-table th:nth-child(3),
+.challenge-table td:nth-child(3) {
+    width: 25%; /* Topics column - medium */
+}
+
+.challenge-table th:nth-child(4),
+.challenge-table td:nth-child(4) {
+    width: 17%; /* Difficulty column - medium */
+}
+
 .challenge-table th,
 .challenge-table td {
     padding: 15px;
@@ -186,4 +207,58 @@ body {
     padding: 10px;
     border-radius: 6px;
     overflow-x: auto;
+}
+
+/* Topics Column Styling */
+.topics-cell {
+    padding: 8px 12px !important;
+    max-width: 200px;
+    overflow: hidden;
+}
+
+.topic-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary-color), #0099cc);
+    color: #000;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin: 2px 3px 2px 0;
+    text-transform: capitalize;
+    box-shadow: 0 1px 3px rgba(0, 212, 255, 0.3);
+    transition: all 0.2s ease;
+}
+
+.topic-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 212, 255, 0.4);
+    background: linear-gradient(135deg, #00e6ff, #00b8d4);
+}
+
+.no-topics {
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 12px;
+}
+
+/* Alternative color schemes for different topics */
+.topic-badge:nth-child(odd) {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    color: #fff;
+}
+
+.topic-badge:nth-child(3n) {
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+    color: #fff;
+}
+
+.topic-badge:nth-child(4n) {
+    background: linear-gradient(135deg, #45b7d1, #3498db);
+    color: #fff;
+}
+
+.topic-badge:nth-child(5n) {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: #fff;
 }

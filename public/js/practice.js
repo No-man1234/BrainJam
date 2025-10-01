@@ -5,23 +5,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     let selectedDifficulty = '';
 
-    // Modal elements
-    const modal = document.getElementById('problem-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalBody = document.getElementById('modal-body');
-    const modalInput = document.getElementById('modal-input');
-    const modalOutput = document.getElementById('modal-output');
-    const modalClose = modal.querySelector('.close');
-
-    modalClose.addEventListener('click', () => modal.style.display = 'none');
-    window.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
-
     // Fetch all problems
     async function fetchProblems() {
         try {
             const res = await fetch('/api/practice/problems');
             const data = await res.json();
-            if (data.success) return data.data;
+            if (data.success) {
+                console.log('Fetched problems:', data.data);
+                console.log('Sample problem structure:', data.data[0]);
+                return data.data;
+            }
             console.error('Failed to fetch problems:', data.error);
             return [];
         } catch (err) {
@@ -49,32 +42,46 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // Render table and attach click event for modal
+    // Render table and attach click event for navigation
     async function renderTable(problems) {
+        console.log('Rendering table with problems:', problems);
         tableBody.innerHTML = '';
 
         problems.forEach(problem => {
+            console.log('Processing problem:', problem);
+            console.log('Problem topics:', problem.topics);
+            console.log('Problem difficulty:', problem.difficulty);
+            
             const row = document.createElement('tr');
             row.classList.add('challenge-row');
+            
+            // Format topics as badges
+            const topics = problem.topics ? problem.topics.split(', ').map(topic => 
+                `<span class="topic-badge">${topic}</span>`
+            ).join('') : '<span class="no-topics">No topics</span>';
+            
+            console.log('Formatted topics:', topics);
+            
             row.innerHTML = `
+                <td style="font-weight: 600; color: var(--primary-color);">#${problem.id}</td>
                 <td>${problem.title}</td>
+                <td class="topics-cell">${topics}</td>
                 <td class="${getDifficultyClass(problem.difficulty)}">${problem.difficulty}</td>
             `;
 
-            // Show modal on click
+            // Navigate to problem detail page on click
             row.addEventListener('click', () => {
-                modalTitle.textContent = problem.title;
-
-                // Remove first line if it starts with #
-                let bodyLines = problem.body_md.split('\n');
-                if (bodyLines[0].startsWith('#')) bodyLines.shift();
-                modalBody.innerHTML = marked.parse(bodyLines.join('\n'));
-
-                modalInput.textContent = problem.input_format || 'No input format provided';
-                modalOutput.textContent = problem.output_format || 'No output format provided';
-                modal.style.display = 'block';
+                window.location.href = `problem-detail.html?id=${problem.id}`;
             });
 
+            // Add hover effect
+            row.style.cursor = 'pointer';
+            row.addEventListener('mouseenter', () => {
+                row.style.backgroundColor = 'rgba(0, 212, 255, 0.08)';
+            });
+            row.addEventListener('mouseleave', () => {
+                row.style.backgroundColor = '';
+            });
 
             tableBody.appendChild(row);
         });
