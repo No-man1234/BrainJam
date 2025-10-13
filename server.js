@@ -12,6 +12,7 @@ const learningRoutes = require('./routes/learning');
 const learnRoutes = require('./routes/learn');
 const practiceRoutes = require('./routes/practice');
 const problemsRoutes = require('./routes/problems');
+const contestsRoutes = require('./routes/create_contest');
 
 const db = require('./config/database');
 
@@ -69,6 +70,8 @@ app.use('/api/learning', learningRoutes);
 app.use('/api/learn', learnRoutes);
 app.use('/api/practice', practiceRoutes);
 app.use('/api/problems', problemsRoutes);
+app.use('/api/contests', contestsRoutes);
+console.log('📌 Contests routes loaded');
 
 
 // Serve HTML pages
@@ -121,6 +124,15 @@ app.get('/problem-detail', (req, res) => {
 
 app.get('/problem-management', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'problem-management.html'));
+});
+
+// Example for your admin create page:
+app.get('/admin-create-contest', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin-create-contest.html'));
+});
+
+app.get('/admin-contest-management', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin-contest-management.html'));
 });
 
 // Error handling middleware

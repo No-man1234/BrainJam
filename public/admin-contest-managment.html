@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - BrainJam</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/admin.css" />
+    <link rel="stylesheet" href="css/admin-buttons.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/admin-contest-management.css" />
+  </head>
+  <body>
+    <div class="admin-container">
+      <!-- Sidebar Navigation -->
+      <div class="sidebar">
+        <h2>Admin Panel</h2>
+
+        <nav class="nav-menu">
+          <a href="admin-dashboard.html" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="content-management.html" class="nav-item">
+            <i class="fas fa-file-alt"></i>
+            <span>Content Management</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fas fa-trophy"></i>
+            <span>Competition Management</span>
+          </a>
+          <a href="problem-management.html" class="nav-item">
+            <i class="fas fa-code"></i>
+            <span>Problem Management</span>
+          </a>
+          <a href="problem-management.html" class="nav-item">
+            <i class="fas fa-code"></i>
+            <span>Contest Management</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <header class="admin-header">
+          <h1><i class="fas fa-home"></i> Contest Management</h1>
+          <div class="header-actions">
+            <button id="createContestBtn" class="create-btn">
+              <span class="material-symbols-outlined">add</span>
+              Create Contest
+            </button>
+            <button id="logout-btn" class="btn btn-danger">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </div>
+        </header>
+
+        <div class="content">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Contest Name</th>
+                  <th>Start Time</th>
+                  <th>Duration</th>
+                  <th>Status</th>
+                  <th class="text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="contestTableBody">
+                <!-- Dynamic content from DB will be inserted here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contest Details Modal -->
+      <div id="contestModal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <h2 id="contestTitle"></h2>
+          <p><strong>Start Time:</strong> <span id="contestStart"></span></p>
+          <p>
+            <strong>Duration:</strong> <span id="contestDuration"></span> hours
+          </p>
+          <h3>Problems</h3>
+          <ul id="contestProblems"></ul>
+          <div class="modal-actions">
+            <!-- <button id="editContestBtn" class="btn btn-primary">
+              Edit Contest
+            </button>
+            <button id="deleteContestBtn" class="btn btn-danger">
+              Delete Contest
+            </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/admin.js"></script>
+    <script src="js/admin-auth.js"></script>
+    <script src="js/admin-contest-managment.js"></script>
+  </body>
+</html>
