@@ -209,9 +209,7 @@ router.get("/:id/details", authenticateToken, async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-=======
-// Get contest info for registered users (non-admin)
+
 router.get("/:id/info", authenticateToken, async (req, res) => {
   try {
     const contestId = req.params.id;
@@ -259,7 +257,6 @@ router.get("/:id/info", authenticateToken, async (req, res) => {
   }
 });
 
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
 // Fetch contest details including problems (Admin only)
 router.get("/:id", authenticateToken, isAdmin, async (req, res) => {
   const contestId = req.params.id;
@@ -506,8 +503,6 @@ router.get("/:id/leaderboard", authenticateToken, async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-=======
 // Track contest problem submission
 router.post("/:id/submit/:problemId", authenticateToken, async (req, res) => {
   try {
@@ -630,5 +625,4 @@ router.get("/:id/achievements", authenticateToken, async (req, res) => {
   }
 });
 
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
 module.exports = router;
