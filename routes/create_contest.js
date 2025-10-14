@@ -8,13 +8,13 @@ const { authenticateToken, isAdmin } = require("../middleware/auth");
 router.get("/problems", authenticateToken, isAdmin, async (req, res) => {
   try {
     const [problems] = await db.execute(`
-      SELECT id, title, difficulty
+      SELECT id, title, difficulty, body_md as description
       FROM problems
       WHERE is_public = 1
       ORDER BY created_at DESC
     `);
     res.json({ success: true, problems });
-    // console.log('✅Fetched problems:', problems);
+    console.log('✅ Fetched problems:', problems.length);
   } catch (error) {
     console.error("Error fetching problems:", error);
     res.status(500).json({ success: false, error: "Failed to fetch problems" });
@@ -22,12 +22,19 @@ router.get("/problems", authenticateToken, isAdmin, async (req, res) => {
 });
 
 // Create new contest
-// Create new contest
-router.post("/create-contest", async (req, res) => {
-  const { name, start_time, duration_hours, problem_ids } = req.body;
-  // console.log('✅req.body:', req.body);
+router.post("/create-contest", authenticateToken, isAdmin, async (req, res) => {
+  const { name, description, start_time, duration_hours, problem_ids } = req.body;
+  console.log('✅ Create contest request received:', {
+    name,
+    description,
+    start_time,
+    duration_hours,
+    problem_ids,
+    user: req.user
+  });
 
   if (!name || !start_time || !duration_hours || !Array.isArray(problem_ids)) {
+    console.log('❌ Missing required fields:', { name, start_time, duration_hours, problem_ids });
     return res
       .status(400)
       .json({ success: false, error: "Missing required fields" });
@@ -37,93 +44,410 @@ router.post("/create-contest", async (req, res) => {
   try {
     await conn.beginTransaction();
 
-    // Insert contest
+    // Convert start_time to proper format and calculate end_time
+    const startTime = new Date(start_time);
+    const endTime = new Date(startTime.getTime() + duration_hours * 60 * 60 * 1000);
+
+    // Insert contest into contests table
     const [result] = await conn.execute(
-      `
-            INSERT INTO admin_contests (name, start_time, duration_hours)
-            VALUES (?, ?, ?)
-        `,
-      [name, start_time, duration_hours]
+      `INSERT INTO contests (title, description, start_time, end_time, visibility, created_by)
+       VALUES (?, ?, ?, ?, 'public', ?)`,
+      [name, description || 'Contest created via admin panel', startTime, endTime, req.user.id]
     );
 
     const contestId = result.insertId;
 
     // Insert contest problems
-    for (let problemId of problem_ids) {
+    for (let i = 0; i < problem_ids.length; i++) {
       await conn.execute(
-        `
-                INSERT INTO admin_contest_problems (contest_id, problem_id)
-                VALUES (?, ?)
-            `,
-        [contestId, problemId]
+        `INSERT INTO contest_problems (contest_id, problem_id, display_order, points)
+         VALUES (?, ?, ?, ?)`,
+        [contestId, problem_ids[i], i + 1, 100]
       );
     }
 
     await conn.commit();
+    console.log('✅ Contest created successfully:', contestId);
     res.json({ success: true, contest_id: contestId });
   } catch (err) {
     await conn.rollback();
-    console.error("Error creating contest:", err); // ← Look at this error
-    res.status(500).json({ success: false, error: "Failed to create contest" });
+    console.error("❌ Error creating contest:", err);
+    console.error("❌ Error details:", {
+      message: err.message,
+      code: err.code,
+      errno: err.errno,
+      sqlState: err.sqlState,
+      sqlMessage: err.sqlMessage
+    });
+    res.status(500).json({ success: false, error: "Failed to create contest: " + err.message });
   } finally {
     conn.release();
   }
 });
 
 // Fetch all contests
-router.get("/fetch-contests", async (req, res) => {
+router.get("/fetch-contests", authenticateToken, isAdmin, async (req, res) => {
   try {
-    const [rows] = await db.execute(
-      "SELECT * FROM admin_contests ORDER BY start_time DESC"
-    );
+    const [rows] = await db.execute(`
+      SELECT 
+        c.*,
+        TIMESTAMPDIFF(HOUR, c.start_time, c.end_time) as duration,
+        (SELECT COUNT(*) FROM contest_participants cp WHERE cp.contest_id = c.id) as participant_count
+      FROM contests c
+      ORDER BY c.start_time DESC
+    `);
+    
     res.json({ contests: rows });
-    console.log("✅Fetched contests:", rows);
   } catch (err) {
-    console.error(err);
+    console.error("❌ Error fetching contests:", err);
+    console.error("❌ SQL Error details:", {
+      message: err.message,
+      code: err.code,
+      sqlMessage: err.sqlMessage
+    });
     res.status(500).json({ error: "Failed to fetch contests" });
   }
 });
 
-// Fetch contest details including problems
-router.get("/:id", async (req, res) => {
+// Get active contests for users
+router.get("/active", authenticateToken, async (req, res) => {
+  try {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ success: false, error: 'User not authenticated' });
+    }
+    
+    const userId = req.user.id;
+    const now = new Date();
+    
+    const [contests] = await db.execute(`
+      SELECT 
+        c.*,
+        TIMESTAMPDIFF(HOUR, c.start_time, c.end_time) as duration,
+        CASE 
+          WHEN cp.user_id IS NOT NULL THEN true 
+          ELSE false 
+        END as is_registered,
+        (SELECT COUNT(*) FROM contest_participants WHERE contest_id = c.id) as participant_count
+      FROM contests c
+      LEFT JOIN contest_participants cp ON c.id = cp.contest_id AND cp.user_id = ?
+      WHERE c.start_time <= ? AND c.end_time > ?
+      ORDER BY c.start_time ASC
+    `, [userId, now, now]);
+
+    res.json({ success: true, contests });
+  } catch (error) {
+    console.error("❌ Error fetching active contests:", error);
+    res.status(500).json({ success: false, error: "Failed to fetch active contests" });
+  }
+});// Get upcoming contests for users
+router.get("/upcoming", authenticateToken, async (req, res) => {
+  try {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ success: false, error: 'User not authenticated' });
+    }
+    
+    const userId = req.user.id;
+    const now = new Date();
+    
+    const [contests] = await db.execute(`
+      SELECT 
+        c.*,
+        TIMESTAMPDIFF(HOUR, c.start_time, c.end_time) as duration,
+        CASE 
+          WHEN cp.user_id IS NOT NULL THEN true 
+          ELSE false 
+        END as is_registered,
+        (SELECT COUNT(*) FROM contest_participants WHERE contest_id = c.id) as participant_count
+      FROM contests c
+      LEFT JOIN contest_participants cp ON c.id = cp.contest_id AND cp.user_id = ?
+      WHERE c.start_time > ?
+      ORDER BY c.start_time ASC
+    `, [userId, now]);
+
+    res.json({ success: true, contests });
+  } catch (error) {
+    console.error("❌ Error fetching upcoming contests:", error);
+    res.status(500).json({ success: false, error: "Failed to fetch upcoming contests" });
+  }
+});
+
+// Get contest details for users (public access)
+router.get("/:id/details", authenticateToken, async (req, res) => {
   const contestId = req.params.id;
   try {
     const [contestRows] = await db.execute(
-      "SELECT * FROM admin_contests WHERE id = ?",
+      `SELECT c.*, 
+        (SELECT COUNT(*) FROM contest_participants cp WHERE cp.contest_id = c.id) as participant_count,
+        (SELECT COUNT(*) FROM contest_problems cp WHERE cp.contest_id = c.id) as total_problems
+       FROM contests c WHERE c.id = ?`,
+      [contestId]
+    );
+    
+    if (!contestRows.length) {
+      return res.status(404).json({ 
+        success: false, 
+        error: "Contest not found" 
+      });
+    }
+
+    const contest = contestRows[0];
+    // Calculate duration in hours
+    contest.duration = Math.round(
+      (new Date(contest.end_time) - new Date(contest.start_time)) / (1000 * 60 * 60)
+    );
+
+    res.json({
+      success: true,
+      contest: contest
+    });
+  } catch (err) {
+    console.error("Error fetching contest details:", err);
+    res.status(500).json({ 
+      success: false, 
+      error: "Failed to fetch contest details" 
+    });
+  }
+});
+
+// Fetch contest details including problems (Admin only)
+router.get("/:id", authenticateToken, isAdmin, async (req, res) => {
+  const contestId = req.params.id;
+  try {
+    const [contestRows] = await db.execute(
+      "SELECT * FROM contests WHERE id = ?",
       [contestId]
     );
     if (!contestRows.length)
       return res.status(404).json({ error: "Contest not found" });
 
     const [problemRows] = await db.execute(
-      `
-      SELECT p.id, p.title, p.slug, p.difficulty
-      FROM admin_contest_problems acp
-      JOIN problems p ON acp.problem_id = p.id
-      WHERE acp.contest_id = ?`,
+      `SELECT p.id, p.title, p.slug, p.difficulty
+       FROM problems p
+       JOIN contest_problems cp ON p.id = cp.problem_id
+       WHERE cp.contest_id = ?
+       ORDER BY cp.display_order`,
       [contestId]
     );
 
-    res.json({ contest: contestRows[0], problems: problemRows });
+    res.json({
+      contest: contestRows[0],
+      problems: problemRows,
+    });
   } catch (err) {
-    console.error(err);
+    console.error("Error fetching contest details:", err);
     res.status(500).json({ error: "Failed to fetch contest details" });
   }
 });
 
 // Delete contest
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authenticateToken, isAdmin, async (req, res) => {
   const contestId = req.params.id;
+  const conn = await db.getConnection();
   try {
-    await db.execute(
-      "DELETE FROM admin_contest_problems WHERE contest_id = ?",
-      [contestId]
-    );
-    await db.execute("DELETE FROM admin_contests WHERE id = ?", [contestId]);
+    await conn.beginTransaction();
+    
+    // Delete contest problems first
+    await conn.execute("DELETE FROM contest_problems WHERE contest_id = ?", [contestId]);
+    
+    // Delete contest
+    await conn.execute("DELETE FROM contests WHERE id = ?", [contestId]);
+    
+    await conn.commit();
     res.json({ success: true });
   } catch (err) {
-    console.error(err);
+    await conn.rollback();
+    console.error("Error deleting contest:", err);
     res.status(500).json({ error: "Failed to delete contest" });
+  } finally {
+    conn.release();
+  }
+});
+
+// ===== USER-FACING CONTEST ROUTES =====
+
+// Register for a contest
+router.post("/:id/register", authenticateToken, async (req, res) => {
+  try {
+    const contestId = req.params.id;
+    const userId = req.user.id;
+    
+    // Check if contest exists and is upcoming
+    const [contests] = await db.execute(
+      "SELECT * FROM contests WHERE id = ? AND start_time > NOW()",
+      [contestId]
+    );
+    
+    if (contests.length === 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Contest not found or registration period has ended" 
+      });
+    }
+    
+    // Check if already registered
+    const [existing] = await db.execute(
+      "SELECT * FROM contest_participants WHERE contest_id = ? AND user_id = ?",
+      [contestId, userId]
+    );
+    
+    if (existing.length > 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "You are already registered for this contest" 
+      });
+    }
+    
+    // Register the user
+    await db.execute(
+      "INSERT INTO contest_participants (contest_id, user_id, joined_at) VALUES (?, ?, NOW())",
+      [contestId, userId]
+    );
+    
+    res.json({ 
+      success: true, 
+      message: "Successfully registered for the contest!" 
+    });
+    
+  } catch (error) {
+    console.error("❌ Error registering for contest:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Failed to register for contest" 
+    });
+  }
+});
+
+// Check contest status for user
+router.get("/:id/status", authenticateToken, async (req, res) => {
+  try {
+    const contestId = req.params.id;
+    const userId = req.user.id;
+    
+    // Check if user is registered
+    const [registration] = await db.execute(
+      "SELECT * FROM contest_participants WHERE contest_id = ? AND user_id = ?",
+      [contestId, userId]
+    );
+    
+    // Get contest details
+    const [contests] = await db.execute(
+      "SELECT * FROM contests WHERE id = ?",
+      [contestId]
+    );
+    
+    if (contests.length === 0) {
+      return res.status(404).json({ 
+        success: false, 
+        message: "Contest not found" 
+      });
+    }
+    
+    const contest = contests[0];
+    const now = new Date();
+    const startTime = new Date(contest.start_time);
+    const endTime = new Date(contest.end_time);
+    
+    let status = 'upcoming';
+    if (now >= startTime && now <= endTime) {
+      status = 'active';
+    } else if (now > endTime) {
+      status = 'ended';
+    }
+    
+    res.json({
+      success: true,
+      is_registered: registration.length > 0,
+      contest_status: status,
+      contest: contest
+    });
+    
+  } catch (error) {
+    console.error("❌ Error checking contest status:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Failed to check contest status" 
+    });
+  }
+});
+
+// Get contest problems for users
+router.get("/:id/problems", authenticateToken, async (req, res) => {
+  try {
+    const contestId = req.params.id;
+    const userId = req.user.id;
+    
+    // Check if user is registered for the contest
+    const [registration] = await db.execute(
+      "SELECT * FROM contest_participants WHERE contest_id = ? AND user_id = ?",
+      [contestId, userId]
+    );
+    
+    if (registration.length === 0) {
+      return res.status(403).json({ 
+        success: false, 
+        message: "You must be registered for this contest to view problems" 
+      });
+    }
+    
+    // Get contest problems
+    const [problems] = await db.execute(`
+      SELECT p.id, p.title, p.slug, p.difficulty, p.body_md, p.description
+      FROM problems p
+      JOIN contest_problems cp ON p.id = cp.problem_id
+      WHERE cp.contest_id = ?
+      ORDER BY cp.display_order ASC
+    `, [contestId]);
+    
+    console.log('✅ Fetched contest problems for user:', {
+      userId,
+      contestId,
+      problemCount: problems.length
+    });
+    
+    res.json({ success: true, problems });
+    
+  } catch (error) {
+    console.error("❌ Error fetching contest problems:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Failed to fetch contest problems" 
+    });
+  }
+});
+
+// Get contest leaderboard
+router.get("/:id/leaderboard", authenticateToken, async (req, res) => {
+  try {
+    const contestId = req.params.id;
+    
+    // Get leaderboard data (placeholder for now)
+    const [leaderboard] = await db.execute(`
+      SELECT 
+        u.username,
+        u.id as user_id,
+        0 as score,
+        0 as problems_solved,
+        NULL as last_submission
+      FROM contest_participants cp
+      JOIN users u ON cp.user_id = u.id
+      WHERE cp.contest_id = ?
+      ORDER BY score DESC, last_submission ASC
+      LIMIT 50
+    `, [contestId]);
+    
+    console.log('✅ Fetched contest leaderboard:', {
+      contestId,
+      participantCount: leaderboard.length
+    });
+    
+    res.json({ success: true, leaderboard });
+    
+  } catch (error) {
+    console.error("❌ Error fetching contest leaderboard:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Failed to fetch contest leaderboard" 
+    });
   }
 });
 
