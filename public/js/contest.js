@@ -21,12 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
-<<<<<<< HEAD
-=======
     // Show loading state
     showLoadingState();
     
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
     // Initialize contest page
     initializeContest(contestId);
     
@@ -37,8 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(updateTimeRemaining, 1000);
 });
 
-<<<<<<< HEAD
-=======
 function showLoadingState() {
     document.getElementById('contest-title').textContent = 'Loading Contest...';
     document.getElementById('contest-description').textContent = 'Please wait while we load the contest details.';
@@ -48,7 +43,6 @@ function showLoadingState() {
     document.getElementById('time-remaining').innerHTML = '<i class="fas fa-hourglass-half"></i> <span>Loading...</span>';
 }
 
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
 async function initializeContest(contestId) {
     try {
         // Load contest details
@@ -69,9 +63,6 @@ async function initializeContest(contestId) {
 async function loadContestDetails(contestId) {
     try {
         const token = localStorage.getItem('token') || localStorage.getItem('authToken');
-<<<<<<< HEAD
-        const response = await fetch(`/api/contests/${contestId}`, {
-=======
         
         // First check if user is registered for this contest
         const statusResponse = await fetch(`/api/contests/${contestId}/status`, {
@@ -101,7 +92,6 @@ async function loadContestDetails(contestId) {
         
         // Load detailed contest info
         const response = await fetch(`/api/contests/${contestId}/info`, {
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
             headers: {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json'
@@ -113,13 +103,10 @@ async function loadContestDetails(contestId) {
         }
         
         const data = await response.json();
-<<<<<<< HEAD
-=======
         if (!data.success) {
             throw new Error(data.error || 'Failed to load contest details');
         }
         
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
         currentContest = data.contest;
         
         // Update contest header
@@ -140,8 +127,6 @@ async function loadContestDetails(contestId) {
         
     } catch (error) {
         console.error('Error loading contest details:', error);
-<<<<<<< HEAD
-=======
         
         // Show user-friendly error message
         document.getElementById('contest-title').textContent = 'Error Loading Contest';
@@ -158,17 +143,13 @@ async function loadContestDetails(contestId) {
             }
         }, 3000);
         
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
         throw error;
     }
 }
 
 async function loadContestProblems(contestId) {
     try {
-<<<<<<< HEAD
-=======
         console.log('Loading contest problems for contest ID:', contestId);
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
         const token = localStorage.getItem('token') || localStorage.getItem('authToken');
         const response = await fetch(`/api/contests/${contestId}/problems`, {
             headers: {
@@ -177,23 +158,16 @@ async function loadContestProblems(contestId) {
             }
         });
         
-<<<<<<< HEAD
-=======
         console.log('Problems API response status:', response.status);
         
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
         if (!response.ok) {
             throw new Error('Failed to fetch contest problems');
         }
         
         const data = await response.json();
-<<<<<<< HEAD
-        const problems = data.problems || [];
-=======
         console.log('Problems data received:', data);
         const problems = data.problems || [];
         console.log('Number of problems:', problems.length);
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
         
         const container = document.getElementById('problems-container');
         
@@ -208,20 +182,6 @@ async function loadContestProblems(contestId) {
             return;
         }
         
-<<<<<<< HEAD
-        container.innerHTML = problems.map(problem => `
-            <div class="problem-card" onclick="openProblem(${problem.id})">
-                <div class="problem-header">
-                    <h3 class="problem-title">${escapeHtml(problem.title)}</h3>
-                    <span class="problem-difficulty difficulty-${problem.difficulty.toLowerCase()}">${problem.difficulty}</span>
-                </div>
-                <div class="problem-stats">
-                    <span class="problem-status status-not-attempted">
-                        <i class="fas fa-circle"></i>
-                        Not Attempted
-                    </span>
-                    <span><i class="fas fa-clock"></i> No time limit</span>
-=======
         console.log('Rendering problems...');
         const problemsHtml = problems.map((problem, index) => `
             <div class="problem-card" onclick="openProblem(${problem.id}, '${escapeHtml(problem.title)}')" style="cursor: pointer; transition: all 0.3s ease;">
@@ -249,20 +209,10 @@ async function loadContestProblems(contestId) {
                     <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); openProblem(${problem.id}, '${escapeHtml(problem.title)}')">
                         <i class="fas fa-code"></i> Solve
                     </button>
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
                 </div>
             </div>
         `).join('');
         
-<<<<<<< HEAD
-    } catch (error) {
-        console.error('Error loading contest problems:', error);
-        document.getElementById('problems-container').innerHTML = `
-            <div class="empty-state">
-                <i class="fas fa-exclamation-triangle"></i>
-                <h3>Error Loading Problems</h3>
-                <p>Failed to load contest problems. Please refresh the page.</p>
-=======
         container.innerHTML = problemsHtml;
         console.log('Problems rendered successfully');
         
@@ -276,7 +226,6 @@ async function loadContestProblems(contestId) {
                 <button class="btn btn-primary" onclick="location.reload()">
                     <i class="fas fa-refresh"></i> Refresh Page
                 </button>
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
             </div>
         `;
     }
@@ -527,14 +476,6 @@ function updateTimeRemaining() {
         const diff = startTime - now;
         const timeString = formatTimeDifference(diff);
         timeRemainingElement.innerHTML = `<i class="fas fa-hourglass-start"></i> <span>Starts in ${timeString}</span>`;
-<<<<<<< HEAD
-    } else if (now >= startTime && now <= endTime) {
-        const diff = endTime - now;
-        const timeString = formatTimeDifference(diff);
-        timeRemainingElement.innerHTML = `<i class="fas fa-hourglass-half"></i> <span>${timeString} remaining</span>`;
-    } else {
-        timeRemainingElement.innerHTML = `<i class="fas fa-hourglass"></i> <span>Contest ended</span>`;
-=======
         timeRemainingElement.style.color = '#ffd700';
     } else if (now >= startTime && now <= endTime) {
         const diff = endTime - now;
@@ -550,7 +491,6 @@ function updateTimeRemaining() {
         }
     } else {
         timeRemainingElement.innerHTML = `<i class="fas fa-flag-checkered"></i> <span style="color: #888;">Contest ended</span>`;
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
     }
     
     // Update contest status
@@ -572,8 +512,6 @@ function isContestUpcoming() {
     return now < startTime;
 }
 
-<<<<<<< HEAD
-=======
 // Problem solving functions
 async function openProblem(problemId, problemTitle) {
     try {
@@ -1106,7 +1044,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
 function setupEventListeners() {
     // Logout button
     document.getElementById('logout-btn').addEventListener('click', function() {
@@ -1115,8 +1052,6 @@ function setupEventListeners() {
         window.location.href = '/login.html';
     });
     
-<<<<<<< HEAD
-=======
     // Language select change
     const languageSelect = document.getElementById('language-select');
     if (languageSelect) {
@@ -1139,7 +1074,6 @@ function setupEventListeners() {
         }, 100);
     }
     
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
     // Code editor buttons
     document.getElementById('run-code-btn').addEventListener('click', runCode);
     document.getElementById('submit-code-btn').addEventListener('click', submitCode);
@@ -1153,8 +1087,6 @@ function setupEventListeners() {
     });
 }
 
-<<<<<<< HEAD
-=======
 // Update line numbers in code editor
 function updateLineNumbers() {
     const codeEditor = document.getElementById('code-editor');
@@ -1244,7 +1176,6 @@ main();`
     }
 }
 
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
 // Utility functions
 function escapeHtml(unsafe) {
     return unsafe
