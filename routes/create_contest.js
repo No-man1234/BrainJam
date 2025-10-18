@@ -209,7 +209,7 @@ router.get("/:id/details", authenticateToken, async (req, res) => {
   }
 });
 
-
+// Get contest info for registered users (non-admin)
 router.get("/:id/info", authenticateToken, async (req, res) => {
   try {
     const contestId = req.params.id;
@@ -439,11 +439,7 @@ router.get("/:id/problems", authenticateToken, async (req, res) => {
     
     // Get contest problems
     const [problems] = await db.execute(`
-<<<<<<< HEAD
-      SELECT p.id, p.title, p.slug, p.difficulty, p.body_md, p.description
-=======
       SELECT p.id, p.title, p.slug, p.difficulty, p.body_md
->>>>>>> 72593c9cb3d602f0fc61d1337ade77f86c9a5736
       FROM problems p
       JOIN contest_problems cp ON p.id = cp.problem_id
       WHERE cp.contest_id = ?
