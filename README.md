@@ -26,7 +26,7 @@ A complete competitive programming platform with Docker support, Judge0 API inte
 ### One-Command Setup
 ```bash
 # 1. Clone the repository
-git clone https://github.com/No-man1234/BrainJam.git
+git clone https://github.com/neyamulhasan/BrainJam.git
 cd BrainJam
 
 # 2. Quick setup (Windows)
@@ -62,7 +62,7 @@ docker-compose exec app npm run init-db
 
 1. **Clone and Install**
    ```bash
-   git clone https://github.com/No-man1234/BrainJam.git
+   git clone https://github.com/neyamulhasan/BrainJam.git
    cd BrainJam
    npm install
    ```
@@ -310,7 +310,7 @@ quick-setup.bat # Windows
 ### 3. VPS/Dedicated Server
 ```bash
 # Clone repository
-git clone https://github.com/No-man1234/BrainJam.git
+git clone https://github.com/neyamulhasan/BrainJam.git
 cd BrainJam
 
 # Setup with Docker
@@ -341,7 +341,7 @@ npm start
 ## 📞 Support & Documentation
 
 ### Quick Help
-- **Issue Tracking**: [GitHub Issues](https://github.com/No-man1234/BrainJam/issues)
+- **Issue Tracking**: [GitHub Issues](https://github.com/neyamulhasan/BrainJam/issues)
 - **Docker Problems**: Check `docker-compose logs -f`
 - **Database Issues**: Run `docker-compose exec app npm run init-db`
 - **Port Conflicts**: Application auto-detects available ports
@@ -372,7 +372,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ```bash
 # Quick start (anyone can run this!)
-git clone https://github.com/No-man1234/BrainJam.git
+git clone https://github.com/neyamulhasan/BrainJam.git
 cd BrainJam
 quick-setup.bat  # Windows
 # or
